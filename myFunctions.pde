@@ -101,3 +101,9 @@ void drawDirectionAndScale() {
   fill(255, 255, 0);
   text("50 m", 505, 570);
 }
+
+// Checking if value is 0 because cos(PI/2) isn't showing up as 0
+boolean isApproximatelyZero(float value) {
+  float basicallyZero = 1 * pow(10,-5);
+  return abs(value) < basicallyZero;
+}

@@ -42,30 +42,40 @@ class Projectile {
       this.thetaInst = round(degrees(atan(this.vY / this.vX)));
       
       // Sets direction of instantaneous velocity
-      if(this.vY < 0 && this.vX > 0) {
-        this.direction = "[Forward " + abs(this.thetaInst) + "° " + "down]";
+      if(isApproximatelyZero(this.vX) && this.vY > 0) {
+        this.direction = "[Up]";
       }
       
-      else if(this.vY > 0 && this.vX > 0) {
-        this.direction = "[Forward " + abs(this.thetaInst) + "° " + "up]";
+      else if(isApproximatelyZero(this.vX) && this.vY < 0) {
+        this.direction = "[Down]";
       }
       
-      else if(this.vY < 0 && this.vX < 0) {
-        this.direction = "[Backwards " + abs(this.thetaInst) + "° " + "down]";
+      else if(isApproximatelyZero(this.vY) && this.vX > 0) {
+        this.direction = "[Forward]";
       }
       
-      else if(this.vY > 0 && this.vX < 0) {
-        this.direction = "[Backwards " + abs(this.thetaInst) + "° " + "up]";
+      else if(isApproximatelyZero(this.vY) && this.vX < 0) {
+        this.direction = "[Backwards]";
       }
       
       else {
-        if(this.vX > 0) {
-          this.direction = "[Forward]";
+        if(this.vY < 0 && this.vX > 0) {
+          this.direction = "[Forward " + abs(this.thetaInst) + "° " + "down]";
         }
-        else {
-          this.direction = "[Backwards]";
+        
+        else if(this.vY > 0 && this.vX > 0) {
+          this.direction = "[Forward " + abs(this.thetaInst) + "° " + "up]";
+        }
+        
+        else if(this.vY < 0 && this.vX < 0) {
+          this.direction = "[Backwards " + abs(this.thetaInst) + "° " + "down]";
+        }
+        
+        else if(this.vY > 0 && this.vX < 0) {
+          this.direction = "[Backwards " + abs(this.thetaInst) + "° " + "up]";
         }
       }
+      
     }
     
     // Will show the last time if animation was already run
@@ -166,7 +176,7 @@ class Projectile {
     if((this.theta == 90 || (this.theta == 270 && dy < 0)) && abs(dx) < 4) {
       
       if(dy > 0) 
-        this.vInitial = sqrt((dy + 20) * 2 * gravity);
+        this.vInitial = sqrt((dy + 1) * 2 * gravity);
       
       else
         this.vInitial = 1;
